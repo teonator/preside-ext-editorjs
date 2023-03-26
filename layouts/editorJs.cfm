@@ -1,7 +1,8 @@
 <cfscript>
-	body     = renderView();
-	mainNav  = renderViewlet( "core.navigation.mainNavigation" );
-	metaTags = renderView( "/general/_pageMetaForHtmlHead" );
+	body         = renderView();
+	mainNav      = renderViewlet( "core.navigation.mainNavigation" );
+	metaTags     = renderView( "/general/_pageMetaForHtmlHead" );
+	adminToolBar = renderView( "/editorJs/_adminToolBar" );
 
 	event
 		.include( "css-bootstrap" )
@@ -31,6 +32,8 @@
 				<p>&copy; Pixl8 2013-#Year( Now() )#</p>
 			</div>
 		</div>
+
+		#adminToolBar#
 
 		#event.renderIncludes( "js" )#
 	</body>
