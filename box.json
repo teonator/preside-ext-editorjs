@@ -1,0 +1,31 @@
+{
+    "name":"Preside Extension: EditorJs",
+    "type":"preside-extensions",
+    "version":"$VERSION_NUMBER",
+    "location":"$DOWNLOAD_URL",
+    "private":false,
+    "author":"Teon Ooi",
+    "directory":"application/extensions",
+    "repository":{
+        "type":"git",
+        "URL":"https://github.com/teonator/preside-ext-editorjs"
+    },
+    "slug":"preside-ext-editorjs",
+    "projectURL":"https://github.com/teonator/preside-ext-editorjs",
+    "ignore":[
+        ".git/*",
+        ".gitignore",
+        ".github/*",
+        ".twgit_features_subject",
+        "tests"
+    ],
+    "devDependencies":{
+        "testbox":"2.4.0+80"
+    },
+    "installPaths":{
+        "testbox":"tests/testbox/"
+    },
+    "testbox":{
+        "runner":"http://127.0.0.1:5935/runtests.cfm"
+    }
+}

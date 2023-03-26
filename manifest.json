@@ -1,0 +1,7 @@
+{
+	  "id"        : "preside-ext-editorjs"
+	, "title"     : "EditorJs"
+	, "author"    : "Teon Ooi"
+	, "version"   : "$VERSION_NUMBER"
+	, "dependsOn" : []
+}
