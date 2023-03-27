@@ -1,8 +1,8 @@
 component {
 
 	public string function renderEditor( event, rc, prc ) {
-
 		event
+			.include( "jquery" )
 			.include( "editorjs" )
 			.include( "editorjsinit" )
 		;
@@ -12,7 +12,7 @@ component {
 			event.include( "editorjs#tool#" );
 
 			StructAppend( editorJsTools, runEvent(
-			  event          = "EditorJs.tools.#tool#.configJs"
+			  event          = "EditorJs.tools.#tool#.getConfig"
 				, private        = true
 				, prePostExempt  = true
 				, eventArguments = {}

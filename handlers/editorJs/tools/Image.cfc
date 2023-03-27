@@ -1,6 +1,6 @@
 component {
 
-	public struct function configJs( event, rc, prc ) {
+	public struct function getConfig( event, rc, prc ) {
 		return {
 			image = {
 				  class  = "ImageTool"
