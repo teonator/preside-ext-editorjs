@@ -37,8 +37,10 @@
 	} );
 
 	$( function() {
-		$( "#editModeButton" ).on( "click", async() => {
+		$( "#edit-mode-checkbox" ).on( "click", async function() {
 			const isReadOnlyState = await editor.readOnly.toggle();
+
+			$( ".btn-editorjs" ).toggle( !isReadOnlyState );
 		} );
 	} );
 

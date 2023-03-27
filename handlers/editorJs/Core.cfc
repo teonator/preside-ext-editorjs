@@ -5,6 +5,7 @@ component {
 			.include( "jquery" )
 			.include( "editorjs" )
 			.include( "editorjsinit" )
+			.include( "/css/editorJs/" )
 		;
 
 		var editorJsTools = [:];

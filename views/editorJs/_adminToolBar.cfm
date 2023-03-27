@@ -6,35 +6,27 @@
 </cfscript>
 
 <cfoutput>
-	<div class="presidecms preside-admin-toolbar">
+	<div class="presidecms preside-admin-toolbar preside-admin-toolbar-editorjs">
 		<div class="preside-theme">
 			<div class="navbar navbar-default" id="preside-admin-toolbar">
 				<a href="#event.buildAdminLink()#"><h1>#translateResource( "cms:admintoolbar.title" )#</h1></a>
-				<div class="navbar-header pull-left">
-					<ul class="nav ace-nav">
-						<li>
-							<label>
-								Edit
-								<input id="editModeButton" class="ace ace-switch ace-switch-6" type="checkbox" />
-								<span class="lbl"></span>
-							</label>
-						</li>
-						<li>
-							<button class="btn btn-xs btn-info">
-								<i class="fa fa-save"></i>
-								Save draft
-							</button>
-						</li>
-						<li>
-							<button class="btn btn-xs btn-warning">
-								<i class="fa fa-globe"></i>
-								Publish changes
-							</button>
-						</li>
-					</ul>
-				</div>
 
-				<div class="navbar-header pull-right">
+				<div class="navbar-header">
+					<label>
+						Edit
+						<input id="edit-mode-checkbox" class="ace ace-switch ace-switch-6" type="checkbox" />
+						<span class="lbl"></span>
+					</label>
+
+					<button class="btn btn-mini btn-info btn-editorjs" id="save-button">
+						<i class="fa fa-save"></i>
+						Save
+					</button>
+
+					<button class="btn btn-mini btn-warning btn-editorjs" id="publish-button">
+						<i class="fa fa-globe"></i>
+						Publish
+					</button>
 				</div>
 			</div>
 		</div>
