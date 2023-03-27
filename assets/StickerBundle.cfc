@@ -31,6 +31,8 @@ component output=false {
 			  "header" = "https://cdn.jsdelivr.net/npm/@editorjs/header@2.7.0/dist/bundle.min.js"
 			, "image"  = "https://cdn.jsdelivr.net/npm/@editorjs/image@2.8.1/dist/bundle.min.js"
 			, "list"   = "https://cdn.jsdelivr.net/npm/@editorjs/list@1.8.0/dist/bundle.min.js"
+			, "quote"  = "https://cdn.jsdelivr.net/npm/@editorjs/quote@2.5.0/dist/bundle.js"
+			, "table"  = "https://cdn.jsdelivr.net/npm/@editorjs/table@2.2.1/dist/table.js"
 		};
 
 		for ( var key in editorJsTools ) {
