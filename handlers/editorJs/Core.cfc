@@ -4,7 +4,7 @@ component {
 		event
 			.include( "jquery" )
 			.include( "editorjs" )
-			.include( "editorjsinit" )
+			.include( "/js/editorJs/" )
 			.include( "/css/editorJs/" )
 		;
 

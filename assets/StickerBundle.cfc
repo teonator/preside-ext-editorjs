@@ -23,9 +23,8 @@ component output=false {
 		bundle.asset( "jquery" ).before( "editorjsinit" );
 
 		bundle.addAsset( id="editorjs", url="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.26.5/dist/editor.js" );
-		bundle.addAsset( id="editorjsinit", path="/js/editorJs/script.js" );
 
-		bundle.asset( "editorjsinit" ).dependsOn( "editorjs" );
+		bundle.asset( "/js/editorJs/" ).dependsOn( "editorjs" );
 
 		var editorJsTools = {
 			  "header" = "https://cdn.jsdelivr.net/npm/@editorjs/header@2.7.0/dist/bundle.min.js"

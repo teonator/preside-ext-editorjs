@@ -7,120 +7,135 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-rev' );
+	grunt.loadNpmTasks( 'grunt-babel' );
 
-	grunt.registerTask( 'default', [ 'less', 'cssmin', 'clean', 'rev', 'rename' ] );
+	grunt.registerTask( 'default', [ 'babel', 'uglify', 'less', 'cssmin', 'clean', 'rev', 'rename' ] );
 
 	grunt.initConfig( {
-		uglify: {
-			options:{
+		  babel : {
+			options : {
+				presets : [ '@babel/preset-env' ]
+			},
+			dist : {
+				files : [ {
+					  expand : true
+					, cwd    : 'js/'
+					, src    : [ '**/*.js', '!**/*.min.js' ]
+					, dest   : 'js/build/'
+					, ext    : '.js'
+				} ]
+			}
+		  }
+
+		, uglify : {
+			  options : {
 				  sourceMap     : true
-				, sourceMapName : function( dest ){
-					var parts = dest.split( "/" );
-					parts[ parts.length-1 ] = parts[ parts.length-1 ].replace( /\.js$/, ".map" );
-					return parts.join( "/" );
+				, sourceMapName : function( dest ) {
+					var parts = dest.split( '/' );
+					parts[ parts.length-1 ] = parts[ parts.length-1 ].replace( /\.js$/, '.map' );
+					return parts.join( '/' );
 				 }
+			  }
+			, all : {
+				files : [ {
+					  expand : true
+					, cwd    : 'js/build'
+					, src    : [ '**/*.js', '!**/*.min.js' ]
+					, dest   : 'js/'
+					, ext    : '.min.js'
+					, rename : function( dest, src ){
+						var pathSplit = src.split( '/' );
+						pathSplit[ pathSplit.length-1 ] = '_' + pathSplit[ pathSplit.length-2 ] + '.min.js';
+						return dest + pathSplit.join( '/' );
+					}
+				} ]
+			  }
+		  }
+
+		, less : {
+			options : {
+				paths : [ 'css/lessglobals' ],
 			},
 			all : {
-				files: [{
-					expand  : true,
-					cwd     : "js/",
-					src     : ["**/*.js", "!**/*.min.js" ],
-					dest    : "js/",
-					ext     : ".min.js",
-					rename  : function( dest, src ){
+				files : [ {
+					expand : true,
+					cwd    : 'css/',
+					src    : [ '**/*.less', '!**/lessglobals/*' ],
+					dest   : 'css/',
+					ext    : '.less.css',
+					rename : function( dest, src ) {
 						var pathSplit = src.split( '/' );
-
-						pathSplit[ pathSplit.length-1 ] = "_" + pathSplit[ pathSplit.length-2 ] + ".min.js";
-
-						return dest + pathSplit.join( "/" );
+						pathSplit[ pathSplit.length-1 ] = '$' + pathSplit[ pathSplit.length-1 ];
+						return dest + pathSplit.join( '/' );
 					}
-				}]
+				} ]
 			}
-		},
+		  }
 
-		less: {
-			options: {
-				paths : [ "css/lessglobals" ],
-			},
-			all: {
-				files: [{
-					expand  : true,
-					cwd     : 'css/',
-					src     : ['**/*.less', '!**/lessglobals/*' ],
-					dest    : 'css/',
-					ext     : ".less.css",
-					rename  : function( dest, src ){
-						var pathSplit = src.split( '/' );
-
-						pathSplit[ pathSplit.length-1 ] = "$" + pathSplit[ pathSplit.length-1 ];
-
-						return dest + pathSplit.join( "/" );
-					}
-				}]
-			}
-		},
-
-		cssmin: {
-			all: {
+		, cssmin : {
+			all : {
 				expand : true,
 				cwd    : 'css/',
 				src    : [ '**/*.css', '!**/_*.min.css' ],
 				ext    : '.min.css',
 				dest   : 'css/',
-				rename : function( dest, src ){
+				rename : function( dest, src ) {
 					var pathSplit = src.split( '/' );
-
-					pathSplit[ pathSplit.length-1 ] = "_" + pathSplit[ pathSplit.length-2 ] + ".min.css";
-					return dest + pathSplit.join( "/" );
+					pathSplit[ pathSplit.length-1 ] = '_' + pathSplit[ pathSplit.length-2 ] + '.min.css';
+					return dest + pathSplit.join( '/' );
 				}
 			}
-		},
+		  }
 
-		clean: {
+		, clean : {
 			all : {
-				files : [{
-					  src    : "js/**/_*.min.js"
-					, filter : function( src ){ return src.match(/[\/\\]_[a-f0-9]{8}\./) !== null; }
-				}, {
-					  src    : ["css/**/_*.min.css"]
-					, filter : function( src ){ return src.match(/[\/\\]_[a-f0-9]{8}\./) !== null; }
-				}]
+				files : [
+					  {
+					  	  src    : 'js/build/'
+					  }
+					, {
+						  src    : 'js/**/_*.min.js'
+						, filter : function( src ) { return src.match(/[\/\\]_[a-f0-9]{8}\./) !== null; }
+					  }
+					, {
+						  src    : [ 'css/**/_*.min.css' ]
+						, filter : function( src ) { return src.match(/[\/\\]_[a-f0-9]{8}\./) !== null; }
+					  }
+				]
 			}
-		},
+		  }
 
-		rev: {
-			options: {
+		, rev : {
+			options : {
 				algorithm : 'md5',
 				length    : 8
 			},
-			all: {
+			all : {
 				files : [
-					  { src : "js/**/_*.min.js"  }
-					, { src : "css/**/**/_*.min.css" }
+					  { src : 'js/**/_*.min.js'  }
+					, { src : 'css/**/**/_*.min.css' }
 				]
 			}
-		},
+		  }
 
-		rename: {
-			assets: {
+		, rename : {
+			assets : {
 				expand : true,
 				cwd    : '',
 				src    : '**/*._*.min.{js,css}',
 				dest   : '',
 				rename : function( dest, src ){
 					var pathSplit = src.split( '/' );
-
-					pathSplit[ pathSplit.length-1 ] = "_" + pathSplit[ pathSplit.length-1 ].replace( /\._/, "." );
-
-					return dest + pathSplit.join( "/" );
+					pathSplit[ pathSplit.length-1 ] = '_' + pathSplit[ pathSplit.length-1 ].replace( /\._/, '.' );
+					return dest + pathSplit.join( '/' );
 				}
 			}
-		},
+		  }
 
-		watch: {
-			all: {
-				files : [ "css/**/**/*.less",  "js/**/**/*.js", "!js/**/*.min.js" ],
-				tasks : [ "default" ]
+		, watch : {
+			all : {
+				  files : [ 'css/**/**/*.less', 'js/**/**/*.js', '!js/**/*.min.js' ]
+				, tasks : [ 'default' ]
 			}
 		}
 	} );
