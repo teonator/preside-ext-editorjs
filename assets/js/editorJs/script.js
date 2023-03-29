@@ -37,10 +37,10 @@
 	} );
 
 	$( function() {
-		$( "#edit-mode-checkbox" ).on( "click", async function() {
+		$( '#editorjs-edit-mode' ).on( 'click', async function() {
 			const isReadOnlyState = await editor.readOnly.toggle();
 
-			$( ".btn-editorjs" ).toggle( !isReadOnlyState );
+			$( '#editorjs-footbar' ).toggle( !isReadOnlyState );
 		} );
 	} );
 

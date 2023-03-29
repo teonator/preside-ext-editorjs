@@ -1,16 +1,17 @@
-.preside-admin-toolbar-editorjs {
-	.navbar-header {
-		display     : flex;
-		gap         : 10px;
-		align-items : center;
-		height      : 45px;
+.preside-editorjs-toolbar  {
+	&.preside-editorjs-footbar {
+		display : none;
+		top     : auto;
+		bottom  : 0;
 
-		label {
-			margin : 0;
-		}
+		.preside-editorjs-container {
+			display     : flex;
+			gap         : 3px;
+			align-items : center;
+			height      : 45px;
 
-		.btn-editorjs  {
-			display : none;
+			width           : 100%;
+			justify-content : right;
 		}
 	}
 }
