@@ -1,3 +1,0 @@
-<cfoutput>
-	#renderEditorJs()#
-</cfoutput>

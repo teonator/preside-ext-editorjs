@@ -1,13 +1,6 @@
 component {
 
-	public string function renderEditor( event, rc, prc ) {
-		event
-			.include( "jquery" )
-			.include( "editorjs" )
-			.include( "/js/editorJs/" )
-			.include( "/css/editorJs/" )
-		;
-
+	public string function index( event, rc, prc, args={} ) {
 		var editorJsTools = [:];
 		for ( var tool in getSetting( name="editorJs.tools", defaultValue=[] ) ) {
 			event.include( "editorjs#tool#" );
@@ -22,12 +15,13 @@ component {
 
 		event.includeData( { editorJsTools=editorJsTools } );
 
-		return '<div id="editorjs"></div>';
-	}
+		event
+			.include( "jquery" )
+			.include( "editorjs" )
+			.include( "/js/editorJs/" )
+		;
 
-	public string function renderContent( event, rc, prc ) {
-
-
+		return renderView( view="/formcontrols/editorJsEditor/index", args=args );
 	}
 
 }

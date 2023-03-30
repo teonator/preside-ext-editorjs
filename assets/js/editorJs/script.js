@@ -1,4 +1,6 @@
-( function() {
+var editorJsJQuery = jQuery.noConflict();
+
+( function( $ ) {
 
 	var editorJsTools = cfrequest.editorJsTools || {};
 
@@ -6,42 +8,39 @@
 		editorJsTools[ tool ].class = window[ editorJsTools[ tool ].class ];
 	}
 
-	var editor = new EditorJS( {
-		  holder      : 'editorjs'
-		, placeholder : 'Start'
-		, readOnly    : true
-		, tools       : editorJsTools
-		, data        : {
-			blocks: [
-				  {
-					  type : 'header'
-					, data : {
-						  text  : 'Untitled'
-						, level : 1
-					}
-				 }
-				, {
-					  type : 'paragraph'
-					, data : {
-						text : 'Lorem ipsum dolor sit amet, quas euismod similique pri ex, ex nostrum ullamcorper suscipiantur per, ei eum error electram necessitatibus. Ex sea dolorem rationibus philosophia, nam putant deleniti imperdiet ex.'
-					}
+	$.fn.editorJsEditor = function() {
+		return this.each( function() {
+			var $this       = $( this )
+			  , $hidden     = $( 'input[type="hidden"]' , this )
+			  , placeholder = $this.data( 'editorjs-placeholder' )
+			  , readOnly    = $this.data( 'editorjs-readonly' )
+			;
+
+			var editor = new EditorJS( {
+				  holder      : this.id
+				, placeholder : placeholder
+				, readOnly    : readOnly
+				, tools       : editorJsTools
+				, onReady     : function() {
+					editor.render( JSON.parse( $hidden.val() ) );
 				  }
-			]
-		  }
-		, onReady     : function() {
+				, onChange    : function( api, event ) {
+					editor.save()
+						.then( ( data ) => {
+							 $hidden.val( JSON.stringify( data ) );
+						} )
+						.catch( ( error ) => {
 
-		  }
-		, onChange    : function( api, event ) {
+						} )
+					;
+				  }
+			} );
 
-		  }
-	} );
+		} );
+	};
 
 	$( function() {
-		$( '#editorjs-edit-mode' ).on( 'click', async function() {
-			const isReadOnlyState = await editor.readOnly.toggle();
-
-			$( '#editorjs-footbar' ).toggle( !isReadOnlyState );
-		} );
+		$( '.editorjs-editor' ).editorJsEditor();
 	} );
 
-} () );
+} ( editorJsJQuery ) );
