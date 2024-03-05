@@ -1,7 +1,4 @@
-var editorJsJQuery = jQuery.noConflict();
-
 ( function( $ ) {
-
 	var editorJsTools = cfrequest.editorJsTools || {};
 
 	for ( var tool in editorJsTools ) {
@@ -22,7 +19,9 @@ var editorJsJQuery = jQuery.noConflict();
 				, readOnly    : readOnly
 				, tools       : editorJsTools
 				, onReady     : function() {
-					editor.render( JSON.parse( $hidden.val() ) );
+					if ( $hidden.val().length > 0 ) {
+						editor.render( JSON.parse( $hidden.val() ) );
+					}
 				  }
 				, onChange    : function( api, event ) {
 					editor.save()
@@ -42,5 +41,4 @@ var editorJsJQuery = jQuery.noConflict();
 	$( function() {
 		$( '.editorjs-editor' ).editorJsEditor();
 	} );
-
-} ( editorJsJQuery ) );
+} ( presideJQuery || jQuery ) );

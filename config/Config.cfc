@@ -6,10 +6,12 @@ component {
 
 		settings.editorJs.tools = [
 			  "header"
-			, "list"
+			, "nestedlist"
 			, "image"
 			, "quote"
 			, "table"
+			, "linkTool"
+			, "checklist"
 		];
 	}
 }
