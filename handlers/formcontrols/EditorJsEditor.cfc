@@ -5,21 +5,21 @@ component {
 		for ( var tool in getSetting( name="editorJs.tools", defaultValue=[] ) ) {
 			event.include( "editorjs#tool#" );
 
-			var toolConfig = runEvent(
-				  event          = "EditorJs.tools.#tool#.getConfig"
+			StructAppend( editorJsTools, runEvent(
+			  event          = "EditorJs.tools.#tool#.getConfig"
 				, private        = true
 				, prePostExempt  = true
-				, eventArguments = { args=args }
-			);
-
-			if ( !StructIsEmpty( toolConfig ) ) {
-				StructAppend( editorJsTools, toolConfig );
-			}
+				, eventArguments = {}
+			) );
 		}
 
-		event.include( "/css/editorJs/" )
-			 .include( "/js/editorJs/"  )
-			 .includeData( { editorJsTools=editorJsTools } );
+		event.includeData( { editorJsTools=editorJsTools } );
+
+		event
+			.include( "jquery" )
+			.include( "editorjs" )
+			.include( "/js/editorJs/" )
+		;
 
 		return renderView( view="/formcontrols/editorJsEditor/index", args=args );
 	}

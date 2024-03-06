@@ -13,7 +13,7 @@
 </cfscript>
 
 <cfoutput>
-	<div id="#inputId#-wrapper" class="editorjs-editor #inputClass#"
+	<div id="test" class="editorjs-editor #inputClass#"
 		data-editorjs-placeholder="#placeholder#"
 		data-editorjs-readonly="#readOnly#"
 	>

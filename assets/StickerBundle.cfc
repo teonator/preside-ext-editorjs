@@ -18,24 +18,25 @@ component output=false {
 			}
 		);
 
-		bundle.addAsset( id="editorjs", url="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest", type="js" );
+		bundle.addAsset( id="jquery", url="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js" );
+
+		bundle.asset( "jquery" ).before( "editorjsinit" );
+
+		bundle.addAsset( id="editorjs", url="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@2.26.5/dist/editor.js" );
+
 		bundle.asset( "/js/editorJs/" ).dependsOn( "editorjs" );
 
 		var editorJsTools = {
-			  "header"     = "https://cdn.jsdelivr.net/npm/@editorjs/header@latest"
-			, "image"      = "https://cdn.jsdelivr.net/npm/@editorjs/image@latest"
-			, "list"       = "https://cdn.jsdelivr.net/npm/@editorjs/link@latest"
-			, "quote"      = "https://cdn.jsdelivr.net/npm/@editorjs/quote@latest"
-			, "table"      = "https://cdn.jsdelivr.net/npm/@editorjs/table@latest"
-			, "linkTool"   = "https://cdn.jsdelivr.net/npm/@editorjs/link@latest"
-			, "checklist"  = "https://cdn.jsdelivr.net/npm/@editorjs/checklist@latest"
-			, "nestedlist" = "https://cdn.jsdelivr.net/npm/@editorjs/nested-list@latest"
+			  "header" = "https://cdn.jsdelivr.net/npm/@editorjs/header@2.7.0/dist/bundle.min.js"
+			, "image"  = "https://cdn.jsdelivr.net/npm/@editorjs/image@2.8.1/dist/bundle.min.js"
+			, "list"   = "https://cdn.jsdelivr.net/npm/@editorjs/list@1.8.0/dist/bundle.min.js"
+			, "quote"  = "https://cdn.jsdelivr.net/npm/@editorjs/quote@2.5.0/dist/bundle.js"
+			, "table"  = "https://cdn.jsdelivr.net/npm/@editorjs/table@2.2.1/dist/table.js"
 		};
 
 		for ( var key in editorJsTools ) {
-			bundle.addAsset( id="editorjs#key#", url=editorJsTools[ key ], type="js" );
-			bundle.asset( "editorjs#key#" ).dependsOn( "editorjs" );
-			bundle.asset( "/js/editorJs/" ).dependsOn( "editorjs#key#" );
+			bundle.addAsset( id="editorjs#key#", url=editorJsTools[ key ] );
+			bundle.asset( "editorjs#key#" ).before( "editorjs" );
 		}
 	}
 
