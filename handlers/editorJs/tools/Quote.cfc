@@ -1,6 +1,6 @@
 component {
 
-	public struct function getConfig( event, rc, prc ) {
+	private struct function getConfig( event, rc, prc, args={} ) {
 		return {
 			quote = {
 				  class         = "Quote"
@@ -13,4 +13,13 @@ component {
 		};
 	}
 
+	private string function renderData( event, rc, prc, args={} ) {
+		var content = args.text ?: "";
+
+		if ( Len( Trim( args.caption ?: "" ) ) ) {
+			content &= "<footer>#args.caption#</footer>";
+		}
+
+		return "<blockquote>#content#</blockquote>";
+	}
 }

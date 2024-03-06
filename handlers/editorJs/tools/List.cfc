@@ -1,6 +1,6 @@
 component {
 
-	public struct function getConfig( event, rc, prc ) {
+	private struct function getConfig( event, rc, prc, args={} ) {
 		return {
 			list = {
 				  class         = "List"
