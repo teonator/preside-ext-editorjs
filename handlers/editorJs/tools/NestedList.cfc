@@ -14,7 +14,7 @@ component {
 		var listContent = "";
 
 		var renderListItem = function( required struct listItem ) {
-			var thisItemContent       = item.content;
+			var thisItemContent       = listItem.content;
 			var thisNestedItemContent = "";
 
 			for ( var subitem in listItem.items ) {
